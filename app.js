@@ -9,10 +9,10 @@ const usersRouter = require("./routes/users");
 
 const app = express();
 //Adds Dotenv
-require("dotenv").config();
+
 //MongoDb
 const mongoose = require("mongoose");
-const mongoDB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.memvx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const mongoDB = `mongodb+srv://michael:1234@cluster0.memvx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
