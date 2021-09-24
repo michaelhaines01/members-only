@@ -1,21 +1,61 @@
 const createError = require("http-errors");
 const express = require("express");
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
+const bcrypt = require("bcryptjs");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-
+const User = require("./models/users");
 const app = express();
+
 //Adds Dotenv
 
 //MongoDb
 const mongoose = require("mongoose");
-const mongoDB = `mongodb+srv://michael:1234@cluster0.memvx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const mongoDB = `mongodb+srv://michael:1234@cluster0.memvx.mongodb.net/members-only?retryWrites=true&w=majority`;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
+//Passport config
+
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    User.findOne({ username: username }, (err, user) => {
+      if (err) {
+        console.log(err);
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false);
+      }
+      bcrypt.compare(password, user.password, (err, res) => {
+        if (res) {
+          // passwords match! log user in
+          console.log("Passwords match");
+          return done(null, user);
+        } else {
+          console.log("Passwords do not match");
+          return done(null, false);
+        }
+      });
+    });
+  })
+);
+//this is the the session cookie data
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -26,7 +66,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
+//Passport config
+app.use(
+  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+//Router config
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 

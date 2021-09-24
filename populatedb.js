@@ -25,7 +25,6 @@ let messages = [];
 function createuser(username, password, member, admin, cb) {
   let newuser = {
     username: username,
-
     password: password,
     member: member,
     admin: admin,
@@ -49,7 +48,7 @@ function createmessage(title, message, timestamp, id, cb) {
     title: title,
     message: message,
     timestamp: timestamp,
-    id: id,
+    user: id,
   };
 
   let post = new Messages(messagedetail);
@@ -69,14 +68,7 @@ function makeuser(cb) {
   async.parallel(
     [
       function (callback) {
-        createuser(
-          "michael",
-
-          "1234",
-          true,
-          true,
-          callback
-        );
+        createuser("michael", "1234", true, true, callback);
       },
       function (callback) {
         createuser(
