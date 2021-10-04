@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          Members</a>
+        <ul class="nav justify-content-end">
+          {{#if member}}
+            {{#unless admin}}
+              <li class="nav-item"><a class="nav-link" href="/admin">Become
+                  Admin</a></li>
+            {{/unless}}
+            <li class="nav-item"><a
+                class="nav-link"
+                href="/create-message"
+              >Create message</a></li>
+            <li class="nav-item"><a
+                class="nav-link"
+                href="/log-out"
+              >logout</a></li>
+
+          {{else}}
+            <li class="nav-item"><a
+                class="nav-link"
+                href="/login"
+              >Login</a></li>
+            <li class="nav-item"><a
+                class="nav-link"
+                href="/signup"
+              >Signup</a></li>
+            <li class="nav-item"><a class="nav-link" href="/join">Join</a></li>
+
+          {{/if}}
+        </ul></div>
+    </nav>
+
+    {{{body}}}
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

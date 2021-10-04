@@ -1,28 +1,90 @@
-{{#if admin}}
-  {{#each messages}}
-    <h1>{{this.title}}</h1>
-    <h2>{{this.message}}</h2>
-    <h3>{{this.timestamp}}</h3>
-    {{#each this.user}}
-      <h2>{{this.username}}</h2>
-    {{/each}}
-    <a href="{{this.delete}}">Delete</a>
-  {{/each}}
-
-{{else}}
-  {{#if member}}
+<div class="container-fluid d-flex flex-column align-items-center">
+  {{#if admin}}
     {{#each messages}}
-      <h1>{{this.title}}</h1>
-      <h2>{{this.message}}</h2>
-      <h3>{{this.timestamp}}</h3>
-      {{#each this.user}}
-        <h2>{{this.username}}</h2>
-      {{/each}}
+
+      <div class="card border-dark m-5" style="min-width: 480px;">
+        <div class="row g-0">
+          <div
+            class="col-md-4 d-flex align-items-center justify-content-center"
+          >
+            <img
+              src="{{avatar this.user}}"
+              class="img-fluid rounded-start"
+              alt="..."
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body text-center">
+              <h4 class="card-title">{{this.title}}</h4>
+              <p class="card-text">{{this.message}}</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="card-footer textmuted d-flex align-items-center justify-content-between"
+        >
+          <h7>Posted by {{this.user.username}}</h7>
+          {{date this.timestamp}}
+        </div>
+        <a class="btn btn-danger" href="{{this.delete}}">Delete</a>
+      </div>
     {{/each}}
   {{else}}
-    {{#each messages}}
-      <h1>{{this.title}}</h1>
-      <h2>{{this.message}}</h2>
-    {{/each}}
+    {{#if member}}
+      {{#each messages}}
+        <div class="card border-dark m-5 w-70">
+          <div class="row g-0">
+            <div
+              class="col-md-4 d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="{{avatar this.user}}"
+                class="img-fluid rounded-start"
+                alt="..."
+              />
+            </div>
+            <div class="col-md-8">
+              <div class="card-body text-center">
+                <h5 class="card-title">{{this.title}}</h5>
+                <p class="card-text">{{this.message}}</p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card-footer textmuted d-flex align-items-center justify-content-between"
+          >
+            Posted by
+            <h4>Posted by {{this.user.username}}</h4>
+            {{date this.timestamp}}
+          </div>
+        </div>
+      {{/each}}
+    {{else}}
+      {{#each messages}}
+        <div class="card border-dark m-5" style="min-width: 29rem;">
+          <div class="row g-0">
+            <div
+              class="col-md-4 d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="{{avatar this.user}}"
+                class="img-fluid rounded-start"
+                alt="..."
+              />
+            </div>
+            <div class="col-md-8">
+              <div class="card-body text-center">
+                <h5 class="card-title">{{this.title}}</h5>
+                <p class="card-text">{{this.message}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer textmuted">
+            Posted by Secret
+          </div>
+        </div>
+
+      {{/each}}
+    {{/if}}
   {{/if}}
-{{/if}}
+</div>

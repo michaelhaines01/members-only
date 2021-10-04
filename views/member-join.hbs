@@ -1,8 +1,12 @@
-<form method="POST">
-  <div>
-    <label>Secret Password</label>
-    <input type="text" name="secret" />
-  </div>
-    <button>Welcome</button>
-  </div>
-</form>
+<div
+  class="container-fluid flex-column d-flex justify-content-center h-75 align-items-center"
+>
+  <h1>Join Members</h1>
+  <form class="card p-3 bg-light" method="POST">
+    <div class="mb-3">
+      <label for="secret" class="form-label">Secret Password</label>
+      <input type="text" name="secret" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Welcome</button>
+  </form>
+</div>

@@ -1,12 +1,21 @@
-<form method="POST">
+<div
+  class="container-fluid flex-column d-flex justify-content-center h-75 align-items-center"
+>
+  <h1>Make post</h1>
+  <form method="POST" class="card p-3 bg-light">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input class="form-control" type="text" name="title" placeholder="..." />
+      <label for="message">Message</label>
+      <input
+        class="form-control"
+        type="text"
+        name="message"
+        placeholder="..."
+      />
+    </div>
 
-  <div>
-    <label>Title</label>
-    <input type="text" name="title" placeholder="..." />
-    <label>Speak your mind</label>
-    <input type="text" name="message" placeholder="..." />
-  </div>
-  <div>
-    <button>Post</button>
-  </div>
-</form>
+    <button type="submit" class="btn btn-primary">Post</button>
+
+  </form>
+</div>

@@ -10,12 +10,15 @@ const bcrypt = require("bcryptjs");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const User = require("./models/users");
+
 const app = express();
+const exphbs = require("express-handlebars");
 
 //Adds Dotenv
 
 //MongoDb
 const mongoose = require("mongoose");
+const { handlebars } = require("hbs");
 const mongoDB = `mongodb+srv://michael:1234@cluster0.memvx.mongodb.net/members-only?retryWrites=true&w=majority`;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
@@ -35,11 +38,9 @@ passport.use(
       }
       bcrypt.compare(password, user.password, (err, res) => {
         if (res) {
-          // passwords match! log user in
           console.log("Passwords match");
           return done(null, user);
         } else {
-          console.log("Passwords do not match");
           return done(null, false);
         }
       });
@@ -56,10 +57,31 @@ passport.deserializeUser(function (id, done) {
     done(err, user);
   });
 });
-
-// view engine setup
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "hbs");
+const hbs = exphbs.create({
+  defaultLayout: "layout",
+  extname: ".hbs",
+});
+// view engine setup
+
+//app.set("view engine", "hbs");
+app.engine(".hbs", hbs.engine);
+app.set("view engine", ".hbs");
+
+hbs.handlebars.registerHelper("avatar", function (user) {
+  let avatar_img = `/images/${user.avatar}-clown.png`;
+
+  return avatar_img;
+});
+
+hbs.handlebars.registerHelper("date", (date) => {
+  let formatdate = date
+    .toISOString()
+    .slice(0, 19)
+    .replace(/-/g, "/")
+    .replace("T", " ");
+  return formatdate;
+});
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -70,6 +92,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 //Router config
@@ -84,6 +107,7 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
+  console.log(res.locals.message);
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
   // render the error page
