@@ -10,8 +10,8 @@
   * Passwords stored on DB encrypyted using bcrypt.
   
  ## Passwords
- Members password = pizza
- Admins password = bbqchicken
+ * Members password = pizza
+ * Admins password = bbqchicken
  
  ## Built with
  * Node express
