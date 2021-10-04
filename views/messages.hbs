@@ -1,7 +1,6 @@
 <div class="container-fluid d-flex flex-column align-items-center">
   {{#if admin}}
     {{#each messages}}
-
       <div class="card border-dark m-5" style="min-width: 480px;">
         <div class="row g-0">
           <div
@@ -15,8 +14,8 @@
           </div>
           <div class="col-md-8">
             <div class="card-body text-center">
-              <h4 class="card-title">{{this.title}}</h4>
-              <p class="card-text">{{this.message}}</p>
+              <h4 class="card-title">{{encodeMyString this.title}}</h4>
+              <p class="card-text">{{encodeMyString this.message}}</p>
             </div>
           </div>
         </div>
@@ -26,13 +25,13 @@
           <h7>Posted by {{this.user.username}}</h7>
           {{date this.timestamp}}
         </div>
-        <a class="btn btn-danger" href="{{this.delete}}">Delete</a>
+        <a class="btn btn-danger" href="{{delete this._id}}">Delete</a>
       </div>
     {{/each}}
   {{else}}
     {{#if member}}
       {{#each messages}}
-        <div class="card border-dark m-5 w-70">
+        <div class="card border-dark m-5" style="min-width: 29rem;">
           <div class="row g-0">
             <div
               class="col-md-4 d-flex align-items-center justify-content-center"
@@ -45,16 +44,15 @@
             </div>
             <div class="col-md-8">
               <div class="card-body text-center">
-                <h5 class="card-title">{{this.title}}</h5>
-                <p class="card-text">{{this.message}}</p>
+                <h5 class="card-title">{{encodeMyString this.title}}</h5>
+                <p class="card-text">{{encodeMyString this.message}}</p>
               </div>
             </div>
           </div>
           <div
             class="card-footer textmuted d-flex align-items-center justify-content-between"
           >
-            Posted by
-            <h4>Posted by {{this.user.username}}</h4>
+            <h7>Posted by {{this.user.username}}</h7>
             {{date this.timestamp}}
           </div>
         </div>
@@ -74,8 +72,8 @@
             </div>
             <div class="col-md-8">
               <div class="card-body text-center">
-                <h5 class="card-title">{{this.title}}</h5>
-                <p class="card-text">{{this.message}}</p>
+                <h5 class="card-title">{{encodeMyString this.title}}</h5>
+                <p class="card-text">{{encodeMyString this.message}}</p>
               </div>
             </div>
           </div>
@@ -83,7 +81,6 @@
             Posted by Secret
           </div>
         </div>
-
       {{/each}}
     {{/if}}
   {{/if}}

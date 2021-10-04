@@ -51,7 +51,9 @@ exports.join = async (req, res, next) => {
       return next(err);
     }
   } else {
-    res.redirect("/login");
+    res.render("member-join", {
+      error: "Invalid Password",
+    });
   }
 };
 
@@ -68,6 +70,8 @@ exports.admin = async (req, res, next) => {
       console.log(err);
     }
   } else {
-    res.redirect("/");
+    res.render("admin-form", {
+      error: "Invalid Password",
+    });
   }
 };

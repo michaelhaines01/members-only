@@ -9,6 +9,7 @@ var MessageSchema = new Schema({
 });
 
 MessageSchema.virtual("delete").get(function () {
+  console.log("hi");
   return "/delete/" + this._id;
 });
 

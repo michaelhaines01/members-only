@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const bcrypt = require("bcryptjs");
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+
 const User = require("./models/users");
 
 const app = express();
@@ -75,12 +75,18 @@ hbs.handlebars.registerHelper("avatar", function (user) {
 });
 
 hbs.handlebars.registerHelper("date", (date) => {
-  let formatdate = date
-    .toISOString()
-    .slice(0, 19)
-    .replace(/-/g, "/")
-    .replace("T", " ");
-  return formatdate;
+  let localtime = date.toLocaleString();
+  return localtime;
+});
+
+hbs.handlebars.registerHelper("delete", (id) => {
+  let deletepath = `/delete/${id}`;
+
+  return deletepath;
+});
+
+hbs.handlebars.registerHelper("encodeMyString", function (inputData) {
+  return new handlebars.SafeString(inputData);
 });
 
 app.use(logger("dev"));
@@ -97,7 +103,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 //Router config
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

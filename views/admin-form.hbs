@@ -1,8 +1,13 @@
-<form method="POST">
-  <div>
-    <label>Secret Password</label>
-    <input type="text" name="admin" />
-  </div>
-    <button>Welcome</button>
-  </div>
-</form>
+<div
+  class="container-fluid flex-column d-flex justify-content-center h-75 align-items-center"
+>
+  <h1>Become Admin.</h1>
+  <form class="card p-3 bg-light" method="POST">
+    <div class="mb-3">
+      <label for="admin" class="form-label">Secret Password</label>
+      <input type="text" name="admin" class="form-control" required />
+      <div style="color:red;">{{error}}</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Welcome</button>
+  </form>
+</div>

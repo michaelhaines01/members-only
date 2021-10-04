@@ -4,9 +4,7 @@ const { body, validationResult } = require("express-validator");
 exports.messages = (req, res, next) => {
   Messages.find()
     .lean()
-
     .populate("user")
-
     .exec((err, messages) => {
       if (err) {
         return next(err);
@@ -32,7 +30,6 @@ exports.postmesssage = [
     if (!errors.isEmpty()) {
       res.render("create-message", {
         errors: errors.array(),
-        //handle error somewhere
       });
     } else {
       let message = new Messages({

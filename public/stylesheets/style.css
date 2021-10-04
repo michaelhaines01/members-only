@@ -1,7 +1,14 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "Roboto Slab", serif;
+  background-color: #101820ff;
+}
+.nav-link {
+  color: white !important;
 }
 
-a {
-  color: #c5c5c5;
+nav {
+  background-color: #fee715ff;
+}
+h1 {
+  color: white;
 }

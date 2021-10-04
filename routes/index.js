@@ -20,6 +20,7 @@ router.get("/login", function (req, res, next) {
 router.get("/signup", function (req, res, next) {
   res.render("sign-up");
 });
+
 router.post("/signup", userController.signup);
 
 router.post("/login", function (req, res, next) {
@@ -53,10 +54,11 @@ router.post("/join", userController.join);
 
 router.get("/admin", function (req, res, next) {
   res.render("admin-form", {
-    admin: req.session.passport.user.admin,
+    member: req.session.passport.user.member,
     admin: req.session.passport.user.admin,
   });
 });
+
 router.post("/admin", userController.admin);
 
 router.get("/log-out", (req, res) => {
@@ -75,4 +77,3 @@ router.post("/create-message", messageController.postmesssage);
 router.get("/delete/:id", messageController.deletemessage);
 
 module.exports = router;
-//e;
