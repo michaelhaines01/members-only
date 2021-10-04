@@ -39,7 +39,8 @@ exports.signup = [
 ];
 
 exports.join = async (req, res, next) => {
-  const secret = "pizza";
+  console.log(D);
+  const secret = process.env.DB_MEMBER_PASSWORD;
   if (secret === req.body.secret) {
     try {
       await User.findByIdAndUpdate(req.session.passport.user._id, {
@@ -58,7 +59,8 @@ exports.join = async (req, res, next) => {
 };
 
 exports.admin = async (req, res, next) => {
-  const secret = "bbqchicken";
+  console.log();
+  const secret = process.env.DB_ADMIN_PASSWORD;
   if (secret === req.body.admin) {
     try {
       await User.findByIdAndUpdate(req.session.passport.user._id, {

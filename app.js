@@ -8,24 +8,19 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const bcrypt = require("bcryptjs");
 const indexRouter = require("./routes/index");
-
 const User = require("./models/users");
-
 const app = express();
 const exphbs = require("express-handlebars");
-
 //Adds Dotenv
-
+require("dotenv").config();
 //MongoDb
 const mongoose = require("mongoose");
 const { handlebars } = require("hbs");
-const mongoDB = `mongodb+srv://michael:1234@cluster0.memvx.mongodb.net/members-only?retryWrites=true&w=majority`;
+const mongoDB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.memvx.mongodb.net/members-only?retryWrites=true&w=majority`;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
-
 //Passport config
-
 passport.use(
   new LocalStrategy((username, password, done) => {
     User.findOne({ username: username }, (err, user) => {
@@ -70,7 +65,6 @@ app.set("view engine", ".hbs");
 
 hbs.handlebars.registerHelper("avatar", function (user) {
   let avatar_img = `/images/${user.avatar}-clown.png`;
-
   return avatar_img;
 });
 
@@ -81,7 +75,6 @@ hbs.handlebars.registerHelper("date", (date) => {
 
 hbs.handlebars.registerHelper("delete", (id) => {
   let deletepath = `/delete/${id}`;
-
   return deletepath;
 });
 
