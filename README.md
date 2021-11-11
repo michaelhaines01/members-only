@@ -19,6 +19,7 @@
  * Handlebars
  * Bootstrap 5
 
-## VIEW LIVE WEBSITE
+## View Live Website
+To open link below in new tab, please CTRL+click (on Windows and Linux) or CMD+click (on MacOS).
 [LIVE VERSION](https://members-only2.herokuapp.com/)
 
