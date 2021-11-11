@@ -13,7 +13,7 @@
  * Members password = pizza
  * Admins password = bbqchicken
  
- ## Built with
+ ## Built With
  * Node express
  * Mongodb
  * Handlebars
